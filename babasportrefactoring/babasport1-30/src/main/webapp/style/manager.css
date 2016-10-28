@@ -1,0 +1,83 @@
+/* 
+    Document   : manager
+    Created on : 2011-1-14, 2:24:17
+    Author     : kang.cunhua
+    Description:
+        后台管理页面的主样式表.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+@import url(common.css);/* 引入通用样式表 */
+
+#head{background-color: #9999ff;width:100%;height: 60px;}
+#foot{background-color: antiquewhite;width:100%;height: 30px; clear: both;}
+
+#left {
+    background-color: #E8F5FE;
+    border: 1px solid #A9C9E2;
+    float: left;
+    display:inline;
+    height: 90%;
+    width: 15%;
+    padding:5px;
+}
+#right {
+    border: 1px solid #A5CF3D;
+    margin: auto;
+    float: left;
+    display:inline;
+    height: 90%;
+    width: 81%;
+    padding: 5px;
+}
+#logo{
+    height: 60px;
+    width: 309px;
+    float: left;
+    display:inline;
+    background:url(../images/admin/managelogo.gif) no-repeat fixed;
+}
+#welcome{
+    height: 50px;width: 300px; float: right;display:inline;padding: 5px;
+}
+#printaction{
+    float: right;
+    display:inline;
+}
+
+.navigatemenu ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.navigatemenu li{float:left;display:inline;width:80px;background:#CCC;margin-left:3px;line-height:30px;text-align:center;}
+.navigatemenu li a{display:block;height:30px;}
+
+.navigatemenu li a:link{color:#666;background:url(../images/admin/arrow_off.gif) #CCC no-repeat 5px 12px;text-decoration:none;}
+
+.navigatemenu li a:visited{color:#666;text-decoration:underline;}
+.navigatemenu li a:hover{color:#FFF; font-weight:bold;text-decoration:none;background:url(../images/admin/arrow_on.gif) #F00 no-repeat 5px 12px;}
+
+#pageNavBar{
+    background: lightskyblue ;
+    text-align:center;
+    height: 30px;
+}
+#pageNavBar ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+#pageNavBar li{float:left;display:inline;width:80px;background:#CCC;margin-left:3px;margin-top: 5px;line-height:20px;text-align:center;}
+#menufunction{
+    float: right;
+    display:inline;
+}
+#menufunction li{float:left;display:inline;width:80px;background:#CCC;margin-left:3px;text-align:center;}
+#functionbar{
+    background-color: #F2FDDB;
+    border: 1px solid #A5CF3D;
+}

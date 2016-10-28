@@ -1,0 +1,27 @@
+/* 
+    Document   : printaction
+    Created on : 2011-1-14, 5:36:33
+    Author     : kang.cunhua
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+@import url(common.css);/* 引入通用样式表 */
+/*不显示打印链接*/
+body,html{
+    width :960px;    
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+#printtitle,#printconent{
+    margin:0 auto;
+}
+#printaction,#pageNavBar,#menufunction{
+    display: none;
+}
+

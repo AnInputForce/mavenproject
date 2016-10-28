@@ -1,0 +1,43 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        容器高度100%是经常用到的需求，任何容器都可以实现，而且不需要嵌套关系。
+
+        把body看作是一个容器，做为内部对象的上层标签，他的高度设置为100%是关键。
+
+        最基本的例子
+        * { margin:0; padding:0; border:0;}
+        html,body { height:100%;} /* 同时设置html是为了兼容FF */
+        #box_2 { height:100%; background:#000;}
+
+        重叠绝对高度效果
+        #box_1 { position:absolute; top:0; left:0; width:100%; height:50px; background:#f00; z-index:2;}
+        #box_2 { position:absolute; left:0; top:0; width:100%; height:100%; background:#000; z-index:1;}
+
+        纵向相对高度效果
+        #box_1 { position:absolute; top:0; left:0; width:100%; height:30%; background:#f00; z-index:2;}
+        #box_2 { position:absolute; left:0; top:30%; width:100%; height:70%; background:#000; z-index:1;}
+
+        横向相对宽度效果
+        #box_1 { position:absolute; top:0; left:0; width:40%; height:100%; background:#f00; z-index:2;}
+        #box_2 { position:absolute; top:0; right:0; width:60%; height:100%; background:#000; z-index:1;}
+        这种布局是不需要float的，还可以有很多变化：
+
+        1，N列布局
+        2，N行布局
+        3，N列加N行交叉布局
+
+        值得注意的是在FF下浏览相对大小容器页面时，调整窗口大小的同时容器大小进行实时调整，而IE只会在窗口调整完毕后才出效果。
+
+        IE5.0 / IE5.5 / IE6.0和FF1.5测试通过
+        文章来自: 好喜爱学习网(http://www.haoxiai.net) 网址：http://www.haoxiai.net/wangzhanzhizuo/cssjiaocheng/50909.html
+    </body>
+</html>

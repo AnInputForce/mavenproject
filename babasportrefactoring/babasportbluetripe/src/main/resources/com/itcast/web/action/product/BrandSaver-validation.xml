@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : BrandSaver-validation.xml
+    Created on : 2011年9月27日, 上午11:27
+    Author     : Kang.Cunhua
+    Description:
+        Purpose of the document follows.
+-->
+
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+  <field name="brand.name">
+    <field-validator type="requiredstring">
+      <message key="product.brand.name.required"></message>
+    </field-validator>
+  </field>
+
+  <field name="doc">
+    <field-validator type="required" short-circuit="true">
+      <message key="product.brand.doc.required"></message>
+    </field-validator>
+  </field>
+
+</validators>

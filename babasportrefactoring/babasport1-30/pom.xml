@@ -1,0 +1,262 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>babasportrefactoring</artifactId>
+    <groupId>com.guloulou</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <groupId>com.guloulou</groupId>
+  <artifactId>babasport1-30</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+
+  <name>babasport1-30 JEE5 Webapp</name>
+  <url>http://www.guloulou.com</url>
+  <description>baba运动网前30讲：Spring3.05 + Struts2 + JPA2（Hibernate） + sitemesh 2.4
+ + 自己编写的css框架 + 测试strut-jquery插件整合 + 测试jquery grid插件应用
+  </description>
+  <dependencies>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.5</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>2.1</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.8.1</version>
+      <scope>test</scope>
+    </dependency>
+<!-- Spring3.05配置开始 -->
+        <!--
+            Core utilities used by other modules.
+            Define this if you use Spring Utility APIs (org.springframework.core.*/org.springframework.util.*)
+        -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+
+        <!--
+            Expression Language (depends on spring-core)
+            Define this if you use Spring Expression APIs (org.springframework.expression.*)
+        -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-expression</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+
+        <!--
+            Bean Factory and JavaBeans utilities (depends on spring-core)
+            Define this if you use Spring Bean APIs (org.springframework.beans.*)
+        -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+
+        <!--
+            Aspect Oriented Programming (AOP) Framework (depends on spring-core, spring-beans)
+            Define this if you use Spring AOP APIs (org.springframework.aop.*)
+        -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+
+        <!--
+            Application Context (depends on spring-core, spring-expression, spring-aop, spring-beans)
+            This is the central artifact for Spring's Dependency Injection Container and is generally always defined
+        -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+
+        <!--
+            Various Application Context utilities, including EhCache, JavaMail, Quartz, and Freemarker integration
+            Define this if you need any of these integrations
+        -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context-support</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+
+        <!--
+            Transaction Management Abstraction (depends on spring-core, spring-beans, spring-aop, spring-context)
+            Define this if you use Spring Transactions or DAO Exception Hierarchy
+            (org.springframework.transaction.*/org.springframework.dao.*)
+        -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+
+        <!--
+            JDBC Data Access Library (depends on spring-core, spring-beans, spring-context, spring-tx)
+            Define this if you use Spring's JdbcTemplate API (org.springframework.jdbc.*)
+        -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+
+        <!--
+            Object-to-Relation-Mapping (ORM) integration with Hibernate, JPA, and iBatis.
+            (depends on spring-core, spring-beans, spring-context, spring-tx)
+            Define this if you need ORM (org.springframework.orm.*)
+        -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+
+        <!--
+            Object-to-XML Mapping (OXM) abstraction and integration with JAXB, JiBX, Castor, XStream, and XML Beans.
+            (depends on spring-core, spring-beans, spring-context)
+            Define this if you need OXM (org.springframework.oxm.*)
+        -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-oxm</artifactId>
+      <version>${org.springframework.version}</version>
+    </dependency>
+
+
+        <!--
+            Support for testing Spring applications with tools such as JUnit and TestNG
+            This artifact is generally always defined with a 'test' scope for the integration testing framework and unit testing stubs
+        -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${org.springframework.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+        <!-- Spring3.05配置结束 -->
+        <!-- Hibernate3 + JPA2 配置开始 -->
+    <dependency>
+      <groupId>org.hibernate.java-persistence</groupId>
+      <artifactId>jpa-api</artifactId>
+      <version>${org.hibernate.java-persistence.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <version>${org.hibernate.version}</version>
+    </dependency>
+        <!-- Hibernate3 + JPA2 配置结束 -->
+        <!-- Hibernate3 + DBCP 配置开始 -->
+    <dependency>
+      <groupId>commons-dbcp</groupId>
+      <artifactId>commons-dbcp</artifactId>
+      <version>1.2.2</version>
+    </dependency>
+        <!-- Hibernate3 + DBCP 配置结束 -->
+        <!-- Hibernate3 + slf4j 配置开始 -->
+        <!-- 原因是hibernate3.3以后的包不提供slf4j-nop-${version}.jar这个包 -->
+        <!--
+        如果喜欢使用Log4j，参考如下解决：
+        Hibernate使用SLF4J API记录日志，所以在Hibernate的lib中，不再提供Log4J的包，
+        而大部分框架依然使用Log4J记录日志，这样导致了兼容性问题。
+        解决办法，两步：
+        一、在编译路径中添加Log4J的包，比如我一直在用的Log4J 1.2.14；
+        二、再添加一个叫做slf4j-log4j12 1.5.2的包进行转换，注意到这里的log4j12，可能对应的是log4j 1.2版本。
+        -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-nop</artifactId>
+      <version>1.6.1</version>
+    </dependency>
+        <!-- Hibernate3 + slf4j 配置结束 -->
+        <!--  Struts 2 配置开始 -->
+    <dependency>
+      <groupId>org.apache.struts</groupId>
+      <artifactId>struts2-core</artifactId>
+      <version>${org.apache.struts.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.struts</groupId>
+      <artifactId>struts2-sitemesh-plugin</artifactId>
+      <version>${org.apache.struts.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.struts</groupId>
+      <artifactId>struts2-spring-plugin</artifactId>
+      <version>${org.apache.struts.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.struts</groupId>
+      <artifactId>struts2-dojo-plugin</artifactId>
+      <version>${org.apache.struts.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.struts</groupId>
+      <artifactId>struts2-json-plugin</artifactId>
+      <version>${org.apache.struts.version}</version>
+    </dependency>
+        <!-- Struts 2 配置结束 -->
+        <!-- Struts2 Jquery插件 配置开始 -->
+    <dependency>
+      <groupId>com.jgeppert.struts2.jquery</groupId>
+      <artifactId>struts2-jquery-grid-plugin</artifactId>
+      <version>${com.jgeppert.struts2.jquery.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jgeppert.struts2.jquery</groupId>
+      <artifactId>struts2-jquery-plugin</artifactId>
+      <version>${com.jgeppert.struts2.jquery.version}</version>
+    </dependency>
+        <!-- Struts2 Jquery插件 配置结束 -->
+        <!-- MySQL 驱动配置开始 -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${org.mysql.version}</version>
+    </dependency>
+        <!-- MySQL 驱动配置结束 -->
+  </dependencies>
+
+  <build>
+    <plugins>
+    </plugins>
+    <finalName>babasport1-30</finalName>
+  </build>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- 配置Spring3的版本属性 -->
+    <org.springframework.version>3.0.5.RELEASE</org.springframework.version>
+        <!-- 配置JPA2的版本属性 -->
+    <org.hibernate.java-persistence.version>2.0-cr-1</org.hibernate.java-persistence.version>
+        <!-- 配置Hibernate的版本属性 -->
+    <org.hibernate.version>3.6.0.Final</org.hibernate.version>
+        <!-- 配置Struts的版本属性 -->
+    <org.apache.struts.version>2.2.3</org.apache.struts.version>
+        <!-- 配置MySQL的版本属性 -->
+    <org.mysql.version>5.1.6</org.mysql.version>
+        <!-- 配置Struts2 Jquery插件的版本属性 -->
+    <com.jgeppert.struts2.jquery.version>3.0.0</com.jgeppert.struts2.jquery.version>
+  </properties>
+</project>

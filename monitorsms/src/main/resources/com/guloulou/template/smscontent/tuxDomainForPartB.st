@@ -1,0 +1,1 @@
+$TuxDomainStatus.rdomain$域连接中断；

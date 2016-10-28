@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+  <persistence-unit name="itcast" >
+    <!-- 实体bean集合名字  -->
+    <!-- JPA驱动提供者  -->
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <properties>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+      <property name="hibernate.max_fetch_depth" value="3"/>
+      <property name="hibernate.jdbc.fetch_size" value="18"/>
+      <property name="hibernate.jdbc.batch_size" value="10"/>
+      <property name="hibernate.show_sql" value="false"/>
+      <property name="hibernate.format_sql" value="true"/>
+      <property name="hibernate.hbm2ddl.auto" value="create"/>
+      <!--
+        //1：value="create-drop" 表示当JPA应用的时候自动创建表，在解应用的时候删除相应的表，这个在做测试的时候比较有用，但在开发过程中不这么用
+        //2：value="create"这个在每次应用启动的时候都会创建数据库表（会删除以前数据库里的数据。
+        //3：value="update" 这个属性的作用是a:每次只会更新数据库表里的信息,在entityBean添加或删除字段的时候会同步到数据库中的表
+      -->
+    </properties>
+  </persistence-unit>
+</persistence>

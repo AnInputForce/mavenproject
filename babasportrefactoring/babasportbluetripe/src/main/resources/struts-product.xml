@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : struts-product.xml
+    Created on : 2011年9月27日, 上午9:04
+    Author     : Kang.Cunhua
+    Description:
+        Purpose of the document follows.
+-->
+<!DOCTYPE struts PUBLIC '-//Apache Software Foundation//DTD Struts Configuration 2.0//EN' 'http://struts.apache.org/dtds/struts-2.0.dtd'>
+<struts>
+<!-- 产品product模块的处理：类型type、品牌brand -->
+  <package name="product" namespace="/control/product" extends="struts-default">
+    <interceptors>
+      <interceptor-stack name="storeStack">
+        <interceptor-ref name="store">
+          <param name="operationMode">AUTOMATIC</param>
+        </interceptor-ref>
+        <interceptor-ref name="paramsPrepareParamsStack" />
+        <interceptor-ref name="defaultStack"/>
+      </interceptor-stack>
+      <interceptor-stack name="picStack">
+        <interceptor-ref name="fileUpload">
+        <!-- 配置允许上传的文件类型，多个用","分隔 -->
+        <!-- IE会把 jpg、jpeg翻译成image/pjpeg，png翻译成image/x-png ;
+          而火狐则很标准：jpg、jpeg翻译成image/jpeg，png翻译成image/png  -->
+        <!-- 不要写成：fileUpload.allowedTypes，会不起作用，还找不到问题 -->
+          <param name="allowedTypes">
+            image/bmp,image/png,image/gif,image/jpeg,image/jpg ,image/x-png,image/pjpeg
+          </param>
+        <!--  配置允许上传的文件大小，单位字节 ；不要写成：fileUpload.maximumSize ，会不起作用，还找不到问题 -->
+          <param name="maximumSize">102400</param>
+        </interceptor-ref>
+        <interceptor-ref name="storeStack" />
+      </interceptor-stack>
+    </interceptors>
+    <!-- 如果action自定义了拦截器，一定要在最后添加这个默认拦截器 -->
+    <default-interceptor-ref name="storeStack"/>
+    <global-results>
+      <result name="message">/WEB-INF/page/message.jsp</result>
+    </global-results>
+    <!-- 产品类型type Start -->
+    <action name="typeFind" class="/control/product/typefinder" >
+      <result name="success">/WEB-INF/page/product/typeinfo.jsp</result>
+    </action>
+    <action name="allTypesFind" class="/control/product/alltypesfinder">
+      <result name="success">/WEB-INF/page/product/typesinfo.jsp</result>
+    </action>
+    <action name="*TypeSave" class="/control/product/typesaver" method="{1}">
+      <result name="input">/WEB-INF/page/product/inputtypesaver.jsp</result>
+      <result name="success" type="redirectAction">
+        <param name="ActionName">allTypesFind</param>
+      </result>
+    </action>
+    <action name="*TypeUpdate" class="/control/product/typeupdater" method="{1}">
+      <result name="input">/WEB-INF/page/product/inputtypeupdater.jsp</result>
+      <result name="success" type="redirectAction">
+        <param name="ActionName">allTypesFind</param>
+      </result>
+    </action>
+    <action name="typeDelete" class="/control/product/typedeleter">
+    </action>
+    <!-- 产品类型type End -->
+    <!-- 产品品牌Brand Start -->
+
+    <action name="brandFind" class="/control/product/brandfinder" >
+      <result name="success">/WEB-INF/page/product/brandinfo.jsp</result>
+    </action>
+    <action name="allBrandsFind" class="/control/product/allbrandsfinder">
+      <result name="success">/WEB-INF/page/product/brandsinfo.jsp</result>
+    </action>
+    <action name="*BrandSave" class="/control/product/brandsaver" method="{1}">
+      <interceptor-ref name="picStack" />
+      <param name="savePath">/upload</param>
+      <result name="input">/WEB-INF/page/product/inputbrandsaver.jsp</result>
+      <result name="success" type="redirectAction">
+        <param name="ActionName">allBrandsFind</param>
+      </result>
+
+    </action>
+    <action name="*BrandUpdate" class="/control/product/brandupdater" method="{1}">
+      <interceptor-ref name="picStack" />
+      <param name="savePath">/upload</param>
+      <result name="input">/WEB-INF/page/product/inputbrandupdater.jsp</result>
+      <result name="success" type="redirectAction">
+        <param name="ActionName">allBrandsFind</param>
+      </result>
+    </action>
+    <action name="brandDelete" class="/control/product/branddeleter">
+    </action>
+    <!-- 产品品牌Brand End -->
+    <!-- 产品信息Infomation Start -->
+    <action name="allInfomationsFind" class="/control/product/allinfomationsfinder">
+      <result name="success">/WEB-INF/page/product/infomationsinfo.jsp</result>
+    </action>
+
+    <action name="*InfomationSave" class="/control/product/infomationsaver" method="{1}">
+      <result name="input">/WEB-INF/page/product/inputinfomationsaver.jsp</result>
+      <result name="selecttype">/WEB-INF/page/product/typeselecter.jsp</result>
+      <result name="success" type="redirectAction">
+        <param name="ActionName">allInfomationsFind</param>
+      </result>
+    </action>
+    <!-- 产品信息Infomation End -->
+
+  </package>
+</struts>

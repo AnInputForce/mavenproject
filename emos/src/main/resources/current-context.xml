@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:context="http://www.springframework.org/schema/context" 
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xsi:schemaLocation="http://www.springframework.org/schema/beans         
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+	   		http://www.springframework.org/schema/context/spring-context-3.1.xsd 
+        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+  <!-- Activates various annotations to be detected in bean classes -->
+  <context:component-scan base-package="com.guloulou"/>
+  <context:annotation-config />
+  <import resource="spring-jpa-mysql.xml"/>
+  <import resource="spring-jpa-oracle-tt.xml"/>
+  <!--如仅有一个jpa:repositories，默认不用指定entityManagerFactory和transactionManager；
+      如有需链接多个库，则需要为jpa:repositories分别指定不同的entityManagerFactory和transactionManager
+  -->
+  <jpa:repositories base-package="com.guloulou.repository"  />
+  	
+</beans>

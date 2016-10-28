@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : struts-upload.xml
+    Created on : 2011年10月1日, 上午3:26
+    Author     : Kang.Cunhua
+    Description:
+        Purpose of the document follows.
+-->
+
+<!DOCTYPE struts PUBLIC '-//Apache Software Foundation//DTD Struts Configuration 2.0//EN' 'http://struts.apache.org/dtds/struts-2.0.dtd'>
+<struts>
+  <!-- 文件上传模块的处理：fileupload -->
+  <package name="upload" namespace="/control/upload" extends="struts-default">
+    <interceptors>
+      <interceptor-stack name="storeStack">
+        <interceptor-ref name="store">
+          <param name="operationMode">AUTOMATIC</param>
+        </interceptor-ref>
+        <interceptor-ref name="paramsPrepareParamsStack" />
+        <interceptor-ref name="defaultStack"/>
+      </interceptor-stack>
+      <interceptor-stack name="picStack">
+        <interceptor-ref name="fileUpload">
+        <!-- 配置允许上传的文件类型，多个用","分隔 -->
+        <!-- IE会把 jpg、jpeg翻译成image/pjpeg，png翻译成image/x-png ;
+          而火狐则很标准：jpg、jpeg翻译成image/jpeg，png翻译成image/png  -->
+        <!-- 不要写成：fileUpload.allowedTypes，会不起作用，还找不到问题 -->
+          <param name="allowedTypes">
+            image/bmp,image/png,image/gif,image/jpeg,image/jpg ,image/x-png,image/pjpeg,application/zip
+          </param>
+        <!--  配置允许上传的文件大小，单位字节 ；不要写成：fileUpload.maximumSize ，会不起作用，还找不到问题 -->
+          <param name="maximumSize">102400</param>
+        </interceptor-ref>
+        <interceptor-ref name="storeStack" />
+      </interceptor-stack>
+    </interceptors>
+    <!-- 如果action自定义了拦截器，一定要在最后添加这个默认拦截器 -->
+    <default-interceptor-ref name="storeStack"/>
+    <global-results>
+      <result name="message">/WEB-INF/page/message.jsp</result>
+    </global-results>
+    <action name="*UploadFileSave" class="/control/upload/uploadfilesaver" method="{1}">
+      <interceptor-ref name="picStack" />
+      <param name="savePath">/upload</param>
+      <result name="input">/WEB-INF/page/upload/inputuploadfilesaver.jsp</result>
+      <!-- <result name="success">/WEB-INF/page/message.jsp</result> -->
+      <result name="success" type="redirectAction">
+        <param name="ActionName">allUploadFilesFind</param>
+      </result>
+    </action>
+    <action name="allUploadFilesFind" class="/control/upload/alluploadFilefinder">
+      <result name="success">/WEB-INF/page/upload/uploadfilesinfo.jsp</result>
+    </action>
+    <action name="UploadFilesDelete" class="/control/upload/uploadfiledeleter">
+      <param name="savePath">/upload</param>
+      <result name="input">/WEB-INF/page/upload/uploadfilesinfo.jsp</result>
+      <result name="success" type="redirectAction">
+        <param name="ActionName">allUploadFilesFind</param>
+      </result>
+    </action>
+  </package>
+</struts>

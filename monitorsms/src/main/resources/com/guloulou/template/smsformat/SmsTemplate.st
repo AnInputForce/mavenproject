@@ -1,0 +1,1 @@
+小贷短信监控测试：$SmsFileFormat.personname$$SmsFileFormat.mobilephone$$SmsFileFormat.sms$

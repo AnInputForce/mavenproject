@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p" 
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+			http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+			http://www.springframework.org/schema/tx 
+			http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-3.1.xsd
+			http://www.springframework.org/schema/jdbc 
+			http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+    		http://www.springframework.org/schema/data/jpa
+   			http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+			http://www.springframework.org/schema/util 
+			http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+  <!-- 如果在spring所有配置文件中出现一个以上 context:property-placeholder来加载不同properties文件，一定会报
+      "Could not resolve placeholder" 错误，Spring 3.0之后可以在每一处都增加 ignore-unresolvable="true" 来规避
+      参考 http://aoyi.iteye.com/blog/1151757
+  -->
+
+  <context:property-placeholder location="classpath:dbcpconfig-simulation.properties" ignore-unresolvable="true"/>
+  	
+  <!-- Declare a datasource that has pooling capabilities-->	 
+ 
+  <bean id="dataSource-tt" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <property name="driverClassName" value="${db.tt.jdbc.driverClassName}" />
+    <property name="url" value="${db.tt.jdbc.url}" />
+    <property name="username" value="${db.tt.jdbc.username}" />
+    <property name="password" value="${db.tt.jdbc.password}"/>
+  </bean>
+  <!--SimpleJdbcDaoSupport 已经在Spring 3.1中被deprecated掉了;
+      好用的SimpleJdbcDaoSupport 及 SimpleJdbcTemplate，已经在3.1中被废弃;
+      原因是JdbcDaoSupport 或NamedParameterJdbcDaoSupport已经提供了其所有功能.
+      
+      参考：http://www.landingbj.com/jbbs/showtopic_tree.jsp?boardcode=WLTL&hit=7&rootid=212491
+      摘要：
+      JdbcTemplate，NamedParameterJdbcTemplate，SimpleJdbcTemplate
+      1.在spring3.1中spring建议我们使用JdbcTemplate和NamedParameterJdbcTemplate，因为这两个类中有SimpleJdbcTemplate内的所有方法
+      2.JDBC支持类，所有支持类均自动管理实务：代表类： JdbcDaoSupport
+        1）.简化了获得JdbcTemplate的方式，只需要继承该类，然后使用getJdbcTemplate ()这样的方式就可以获得JdbcTemplate了
+        2）.与JdbcTemplate一样必须要配置DataSource
+  -->
+  <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"  p:dataSource-ref="dataSource-tt" />
+    
+  
+</beans>

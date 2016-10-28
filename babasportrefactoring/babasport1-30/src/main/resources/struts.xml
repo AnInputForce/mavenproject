@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : struts.xml
+    Created on : 2010年12月29日, 下午2:58
+    Author     : kang.cunhua
+    Description:
+        Purpose of the document follows.
+-->
+
+<!DOCTYPE struts PUBLIC '-//Apache Software Foundation//DTD Struts Configuration 2.0//EN' 'http://struts.apache.org/dtds/struts-2.0.dtd'>
+<struts>
+    <!-- 指定Web应用的默认编码集，相当于调用 HttpServletRequest的setCharacterEncoding方法 -->
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+    <!-- 该 属性指定需要Struts 2处理的请求后缀，该属性的默认值是action，即 所有匹配*.action的请求都由Struts 2处理。如 果用户需要指定多个请求后缀，则多个后缀之间以英文逗号（，）隔开 -->
+    <constant name="struts.action.extension" value="do" />
+    <!-- 设 置浏览器是否缓存静态内容，默认值为true（生产环境下使用），开发阶段最好 关闭 -->
+    <constant name="struts.serve.static.browserCache " value="false" />
+    <!-- 当 struts的配置文件修改后，系统是否自动重新加载该文件，默认值为false（生 产环境下使用），开发阶段最好打开 -->
+    <constant name="struts.configuration.xml.reload" value="true" />
+    <!-- 开 发模式下使用，这样可以打印出更详细的错误信息 -->
+    <constant name="struts.devMode" value="true" />
+    <!-- 默 认的视图主题 -->
+    <constant name="struts.ui.theme" value="simple" />
+    <!-- 该 属性指定Struts 2中的action由Spring容器创 建 -->
+    <constant name="struts.objectFactory" value="spring" />
+
+    <package name="product" namespace="/control/product/type" extends="struts-default">
+        <global-results>
+            <result name="message">/WEB-INF/page/message.jsp</result>
+        </global-results>
+        <action name="*" class="/control/product/type/list" method="{1}">
+            <result name="list">/WEB-INF/page/product/productList.jsp</result>
+        </action>
+
+        <action name="jqueryJgrid">
+            <result>/WEB-INF/page/product/productJquery.jsp</result>
+        </action>
+
+    </package>
+    <package name="showcase" extends="json-default" namespace="/control/product/type">
+        <action name="jsontable" class="/control/product/type/JsonTable">
+            <result type="json"/>
+        </action>
+    </package>
+
+</struts>

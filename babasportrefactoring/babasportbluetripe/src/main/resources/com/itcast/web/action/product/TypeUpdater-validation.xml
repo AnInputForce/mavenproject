@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : TypeUpdater-validation.xml
+    Created on : 2011年9月28日, 下午4:44
+    Author     : Kang.Cunhua
+    Description:
+        Purpose of the document follows.
+-->
+
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+"http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+  <field name="type.name">
+    <field-validator type="requiredstring">
+      <message key="product.type.name.required"/>
+    </field-validator>
+  </field>
+  <field name="type.note">
+    <field-validator type="requiredstring">
+      <message key="product.type.note.required"/>
+    </field-validator>
+  </field>
+</validators>

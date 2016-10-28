@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : decorators.xml
+    Created on : 2011年1月11日, 下午4:43
+    Author     : kang.cunhua
+    Description:
+        Purpose of the document follows.
+-->
+<decorators defaultdir="/WEB-INF/_decorators">
+    <!--excludes结点则指定了哪些路径的请求不使用任何模板-->
+    <!--/index.jsp和凡是以/login/开头的请求路径一律不使用模板-->
+    <excludes>
+        <pattern>/index.jsp*</pattern>
+        <pattern>/login/*</pattern>
+        <pattern>*.html</pattern>
+        <pattern>*.htm</pattern>
+        <pattern>/scripts/*.*</pattern>
+        <pattern>/images/*.*</pattern>
+        <pattern>/styles/*.*</pattern>
+        <pattern>/jasperreport/*.*</pattern>
+<!--        <pattern>/*jquery*</pattern>-->
+    </excludes>
+    <!--decorator结点指定了模板的位置和文件名，通过pattern来指定哪些路径引用哪个模板--> 
+    <decorator name ="printable" page ="decPrintable.jsp" />
+    <decorator name="jqueryjgrid" page="decJqueryJgrid.jsp">
+        <pattern>/*jquery*</pattern>
+    </decorator>
+    <decorator name="manager" page="decManager.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+    
+
+</decorators>  

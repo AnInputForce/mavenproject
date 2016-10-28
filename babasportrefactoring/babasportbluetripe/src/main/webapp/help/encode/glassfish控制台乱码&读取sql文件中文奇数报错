@@ -1,0 +1,7 @@
+现象：
+glassfish在控制台输出乱码；
+通过Spring jdbc标签初始化数据库时，sql脚本 奇数中文乱码；
+
+处理：
+管理控制台-->server-config-->JVM设置-->JVM选项-->添加JVM选项：
+-Dfile.encoding=UTF-8

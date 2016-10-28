@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2012 待到道成日，纵横天地间.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+
+<resource>
+  <item key="D110003" value="北京"/>
+  <item key="D120003" value="天津"/>
+  <item key="D130003" value="河北"/>
+  <item key="D140003" value="山西"/>
+  <item key="D150003" value="内蒙"/>
+  <item key="D210003" value="辽宁"/>
+  <item key="D220003" value="吉林"/>
+  <item key="D230003" value="黑龙"/>
+  <item key="D310003" value="上海"/>
+  <item key="D320003" value="江苏"/>
+  <item key="D330003" value="浙江"/>
+  <item key="D340003" value="安徽"/>
+  <item key="D350003" value="福建"/>
+  <item key="D360003" value="江西"/>
+  <item key="D370003" value="山东"/>
+  <item key="D410003" value="河南"/>
+  <item key="D420003" value="湖北"/>
+  <item key="D430003" value="湖南"/>
+  <item key="D440003" value="广东"/>
+  <item key="D450003" value="广西"/>
+  <item key="D460003" value="海南"/>
+  <item key="D500003" value="重庆"/>
+  <item key="D510003" value="四川"/>
+  <item key="D520003" value="贵州"/>
+  <item key="D530003" value="云南"/>
+  <item key="D540003" value="西藏"/>
+  <item key="D610003" value="陕西"/>
+  <item key="D620003" value="甘肃"/>
+  <item key="D630003" value="青海"/>
+  <item key="D640003" value="宁夏"/>
+  <item key="D650003" value="新疆"/>
+  <item key="D990003" value="总部"/>
+  <item key="pbexch" value="pbexch"/>
+
+</resource>

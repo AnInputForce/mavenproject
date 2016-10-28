@@ -1,0 +1,40 @@
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+  <display-name>Spring3MVC</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  <!--  ContextLoaderListener初始化的上下文加载的Bean是对于整个应用程序共享的，不管是使用什么表现层技术，一般如DAO层、Service层Bean；
+        DispatcherServlet初始化的上下文加载的Bean是只对Spring Web MVC有效的Bean，如Controller、HandlerMapping、HandlerAdapter等等，该初始化上下文应该只加载Web相关组件。
+  -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>    
+    <param-value>classpath:current-context.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <servlet>
+    <!--  默认DispatcherServlet会加载WEB-INF/[DispatcherServlet的Servlet名字]-servlet.xml配置文件
+          此处默认应为为WEB-INF/spring-servlet.xml;
+    -->
+    <servlet-name>spring-dispatcher-xxx</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <!--  DispatcherServlet默认使用WebApplicationContext作为上下文，
+          Spring默认配置文件为“/WEB-INF/[servlet名字]-servlet.xml；
+          可以添加初始化参数指定上下文为classpath下的某文件
+    -->
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:dispatcher-servlet.xml</param-value>
+    </init-param>
+    <!--初始化时加载此servlet，需放在servlet配置的最后一行，否则提示小红叉-->
+    <load-on-startup>1</load-on-startup>   
+ 
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>spring-dispatcher-xxx</servlet-name>
+    <url-pattern>*.html</url-pattern>
+  </servlet-mapping>
+
+</web-app>

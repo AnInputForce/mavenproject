@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.guloulou</groupId>
+  <artifactId>babasportrefactoring</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>babasportrefactoring</name>
+  <modules>
+    <module>babasport1-30</module>
+    <module>babasportcompact</module>
+    <module>babasportbluetripe</module>
+  </modules>
+  <organization>
+    <name>待到道成日，纵横天地间</name>
+    <url>http://www.guloulou.com</url>
+  </organization>
+  <!-- 开发人员信息 -->
+  <developers>
+    <developer>
+      <id>kang.cunhua</id>
+      <email>kangcunhua@hotmail.com</email>
+      <name>kang.cunhua</name>
+      <organization>git</organization>
+      <roles>
+        <role>softwareengineer</role>
+      </roles>
+      <timezone>8</timezone>
+    </developer>
+  </developers>
+  <!--许可证 -->
+  <licenses>
+    <license>
+      <name>Apache 2</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.8.2</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>1.2.16</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+<!--      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.4.3</version>
+        <configuration>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>-->
+      <!-- 如果不添加该插件，运行mvn test，命令行中文莫名其妙乱码 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.9</version>
+        <!--
+        Maven运行测试用例时，是通过调用maven的surefire插件并fork一个子进程来执行用例的。
+        forkmode属性中指明是要为每个测试创建一个进程，还是所有测试在同一个进程中完成。
+        always：在一个进程中并行的运行脚本，Junit4.7以上版本才可以使用，
+        surefire的版本要在2.6以上提供这个功能，
+        其中 threadCount：执行时，指定可分配的线程数量。只和参数parallel配合使用有效。默认：5 -->
+        <configuration>
+          <!-- 明确指定一下JVM的file.encoding-->
+          <argLine>-Dfile.encoding=UTF-8</argLine>
+          <forkMode>always</forkMode><!-- 并行的话，不设置always会导致随机空指针 -->
+          <parallel>methods</parallel>
+          <threadCount>10</threadCount>
+        </configuration>
+      </plugin>
+      <!-- 构建项目站点报告插件 ,详细可参考http://my.oschina.net/linuxred/blog/24458 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.0-beta-3</version>
+        <configuration>
+          <locales>zh_CN</locales><!-- 配置站点国际化 -->
+          <outputEncoding>${project.build.sourceEncoding}</outputEncoding>  <!-- 输出编码 -->
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+</project>

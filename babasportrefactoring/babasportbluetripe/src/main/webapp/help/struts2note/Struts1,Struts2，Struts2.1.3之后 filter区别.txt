@@ -1,0 +1,146 @@
+ActionContextCleanUp,StrutsPrepareAndExecuteFilter,StrutsPrepareFilter,StrutsEecuteFilter2011-01-10 00:02　　struts2中ActionContextCleanUp,StrutsPrepareAndExecuteFilter,StrutsPrepareFilter,StrutsExecuteFilter,FilterDispatcher
+　　刚看了文档中的描述
+　　org.apache.struts2.dispatcher
+　　Class FilterDispatcher
+　　Deprecated. Since Struts 2.1.3, use StrutsPrepareAndExecuteFilter instead or StrutsPrepareFilter and StrutsExecuteFilter if needing using the ActionContextCleanUp filter in addition to this one
+　　org.apache.struts2.dispatcher
+　　Class ActionContextCleanUp
+　　Deprecated. Since Struts 2.1.3, use StrutsPrepareFilter and StrutsExecuteFilter to use other Servlet filters that need access to the ActionContext
+　　org.apache.struts2.dispatcher.ng.filter
+　　Class StrutsPrepareAndExecuteFilter
+　　Handles both the preparation and execution phases of the Struts dispatching process. This filter is better to use when you don't have another filter that needs access to action context information, such as Sitemesh.
+　　org.apache.struts2.dispatcher.ng.filter
+　　Class StrutsPrepareFilter
+　　Prepares the request for execution by a later StrutsExecuteFilter filter instance.
+　　org.apache.struts2.dispatcher.ng.filter
+　　Class StrutsExecuteFilter
+　　Executes the discovered request information. This filter requires the StrutsPrepareFilter to have already been executed in the current chain.
+　　---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+　　FilterDispatcher是struts2.0.x到2.1.2版本的核心过滤器.
+　　StrutsPrepareAndExecuteFilter是自2.1.3开始就替代了FilterDispatcher的.
+　　StrutsPrepareAndExecuteFilter是StrutsPrepareFilter和StrutsExecuteFilter的组合，那什么时候用StrutsPrepareFilter和StrutsExecuteFilter的组合来替代StrutsPrepareAndExecuteFilter呢？下面会讲到。
+　　这样的改革当然是有好处的.
+　　为什么这么说.? 应该知道如果我们自己定义过滤器的话, 是要放在strtus2的过滤器之前的, 如果放在struts2过滤器之后,你自己的过滤器对action的过滤作用就废了,不会有效!除非你是访问jsp/html!
+　　那我现在有需求, 我必须使用Action的环境,而又想在执行action之前拿filter做一些事, 用FilterDispatcher是做不到的.!
+　　那么StrutsPrepareAndExecuteFilter可以把他拆分成StrutsPrepareFilter和StrutsExecuteFilter,可以在这两个过滤器之间加上我们自己的过滤器.!
+　　给你打个比喻, 现在有病人要做手术, 现在struts2要做两件事, 搭病床(环境),执行手术.! 那么打麻药的工作呢.? 不可能要病人站着打吧, 所以必须有病床的环境,打完麻药之后再动手术.! 这个比喻非常形象了.!
+　　ActionContextCleanUp也是自2.1.3开始由StrutsPrepareFilter和StrutsExecuteFilter的组合替代。
+　　看个例子：
+　　在2.1.3之前用sitemesh的web.xml的配置：
+　　Xml代码
+　　1.<filter>
+　　2.   <filter-name>ActionContextCleanUp</filter-name>
+　　3.   <filter-class>org.apache.struts2.dispatcher.ActionContextCleanUp</filter-class>
+　　4.</filter>
+　　5.<filter>
+　　6.   <filter-name>sitemesh</filter-name>
+　　7.   <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
+　　8.</filter>
+　　9.<filter>
+　　10.   <filter-name>struts2</filter-name>
+　　11.   <filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+　　12.</filter>
+　　13.<filter-mapping>
+　　14.   <filter-name>ActionContextCleanUp</filter-name>
+　　15.   <url-pattern>/*</url-pattern>
+　　16.</filter-mapping>
+　　17.<filter-mapping>
+　　18.   <filter-name>sitemesh</filter-name>
+　　19.   <url-pattern>/*</url-pattern>
+　　20.</filter-mapping>
+　　21.<filter-mapping>
+　　22.   <filter-name>struts2</filter-name>
+　　23.   <url-pattern>/*</url-pattern>
+　　24.</filter-mapping>
+　　<filter>
+　　<filter-name>ActionContextCleanUp</filter-name>
+　　<filter-class>org.apache.struts2.dispatcher.ActionContextCleanUp</filter-class>
+　　</filter>
+　　<filter>
+　　<filter-name>sitemesh</filter-name>
+　　<filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
+　　</filter>
+　　<filter>
+　　<filter-name>struts2</filter-name>
+　　<filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+　　</filter>
+　　<filter-mapping>
+　　<filter-name>ActionContextCleanUp</filter-name>
+　　<url-pattern>/*</url-pattern>
+　　</filter-mapping>
+　　<filter-mapping>
+　　<filter-name>sitemesh</filter-name>
+　　<url-pattern>/*</url-pattern>
+　　</filter-mapping>
+　　<filter-mapping>
+　　<filter-name>struts2</filter-name>
+　　<url-pattern>/*</url-pattern>
+　　</filter-mapping>
+　　其中ActionContextCleanUp filter
+　　SiteMesh filter
+　　FilterDispatcher的顺序不能改变。
+　　ActionContextCleanUp的作用是延长action中属性的生命周期，包括自定义属性，以便在jsp页面中进行访问，让actionContextcleanup过滤器来清除属性，不让action自己清除。
+　　为了使用WebWork,我们只需要在web.xml配置FilterDispatcher一个过滤器即可,阅读一下FilterDispatcher的JavaDoc和源码,我们可以看到它调用了:
+　　finally{
+　　ActionContextCleanUp.cleanUp(req);
+　　}
+　　在ActionContextCleanUp中,有这样的代码:
+　　req.setAttribute(CLEANUP_PRESENT, Boolean.TRUE);
+　　如果FilterDispatcher检测到这个属性,就不会清除ActionContext中的内容了,而由ActionContextCleanUp后续的代码来清除,保证了一系列的Filter访问正确的ActionContext。
+　　自Struts2是2.1.3版本开始，死活不得行，总是报错。原来新版本中已经不能再采用这种方式了。
+　　【从struts2.1.3开始ActionContextCleanUp 和 FilterDispatcher过滤器，已经不建议使用了。
+　　将使用StrutsPrepareFilter和StrutsExecuteFilter拦截器替代】
+　　而从Struts2.1.3开始应该改为以下配置才能集成起来，要不然你的装饰器页面或者被装饰页面
+　　里面将不能使用Struts2的标签。一使用就会报错说什么the Struts Dispatcher not found
+　　Xml代码
+　　1.<filter>
+　　2.   <filter-name>StrutsPrepareFilter</filter-name>
+　　3.   <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareFilter</filter-class>
+　　4.</filter>
+　　5.<filter>
+　　6.   <filter-name>sitemesh</filter-name>
+　　7.   <filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
+　　8.</filter>
+　　9.<filter>
+　　10.   <filter-name>StrutsExecuteFilter</filter-name>
+　　11.   <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsExecuteFilter</filter-class>
+　　12.</filter>
+　　13.<filter-mapping>
+　　14.   <filter-name>StrutsPrepareFilter</filter-name>
+　　15.   <url-pattern>/*</url-pattern>
+　　16.</filter-mapping>
+　　17.<filter-mapping>
+　　18.   <filter-name>sitemesh</filter-name>
+　　19.   <url-pattern>/*</url-pattern>
+　　20.</filter-mapping>
+　　21.<filter-mapping>
+　　22.   <filter-name>StrutsExecuteFilter</filter-name>
+　　23.   <url-pattern>/*</url-pattern>
+　　24.</filter-mapping>
+　　<filter>
+　　<filter-name>StrutsPrepareFilter</filter-name>
+　　<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareFilter</filter-class>
+　　</filter>
+　　<filter>
+　　<filter-name>sitemesh</filter-name>
+　　<filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
+　　</filter>
+　　<filter>
+　　<filter-name>StrutsExecuteFilter</filter-name>
+　　<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsExecuteFilter</filter-class>
+　　</filter>
+　　<filter-mapping>
+　　<filter-name>StrutsPrepareFilter</filter-name>
+　　<url-pattern>/*</url-pattern>
+　　</filter-mapping>
+　　<filter-mapping>
+　　<filter-name>sitemesh</filter-name>
+　　<url-pattern>/*</url-pattern>
+　　</filter-mapping>
+　　<filter-mapping>
+　　<filter-name>StrutsExecuteFilter</filter-name>
+　　<url-pattern>/*</url-pattern>
+　　</filter-mapping> 按StrutsPrepareFilter，sitemesh，StrutsExecuteFilter的顺序配置过滤器，sitemesh夹在中间。
+　　通过以上配置能正确使用。
+
+http://hi.baidu.com/chajingchajing/blog/item/c44dee091aa9b122e824886c.html

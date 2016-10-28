@@ -1,0 +1,1 @@
+小贷主机1和小贷主机2与核心系统$TuxDomainStatus.rdomain$域连接都中断了；
